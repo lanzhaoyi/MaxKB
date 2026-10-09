@@ -1,6 +1,6 @@
 <template>
   <div class="flex align-center top-about">
-    <el-button
+    <!-- <el-button
       round
       @click="toUrl('https://maxkb.cn/pricing.html')"
       class="pricing-button mr-8"
@@ -8,7 +8,7 @@
     >
       <AppIcon iconName="app-pricing" class="mr-8"></AppIcon>
       {{ $t('common.upgrade') }}
-    </el-button>
+    </el-button> -->
     <el-tooltip
       v-if="
         hasPermission(
@@ -35,7 +35,7 @@
         ></AppIcon>
       </el-button>
     </el-tooltip>
-    <el-tooltip
+    <!-- <el-tooltip
       effect="dark"
       :content="$t('layout.github')"
       placement="top"
@@ -48,8 +48,8 @@
           style="font-size: 20px"
         ></AppIcon>
       </el-button>
-    </el-tooltip>
-    <el-tooltip
+    </el-tooltip> -->
+    <!-- <el-tooltip
       effect="dark"
       :content="$t('layout.wiki')"
       placement="top"
@@ -62,8 +62,8 @@
           style="font-size: 20px"
         ></AppIcon>
       </el-button>
-    </el-tooltip>
-    <el-tooltip
+    </el-tooltip> -->
+    <!-- <el-tooltip
       effect="dark"
       :content="$t('layout.forum')"
       placement="top"
@@ -76,7 +76,7 @@
           style="font-size: 20px"
         ></AppIcon>
       </el-button>
-    </el-tooltip>
+    </el-tooltip> -->
   </div>
 </template>
 <script setup lang="ts">

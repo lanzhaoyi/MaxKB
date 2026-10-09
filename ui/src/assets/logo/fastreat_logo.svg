@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" width="100%" height="100%">
+  <defs>
+    <!-- 主渐变色 -->
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="50%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+  </defs>
+
+  <!-- 左侧机器人/聊天图标 -->
+  <g transform="translate(5, 5)">
+    <!-- 外壳 Base -->
+    <rect x="5" y="5" width="40" height="30" rx="8" ry="8" fill="url(#primaryGradient)" />
+    <!-- 底部支架/底座 -->
+    <rect x="18" y="37" width="14" height="4" rx="2" fill="url(#primaryGradient)" />
+    <path d="M 21 35 L 21 37 L 29 37 L 29 35 Z" fill="url(#primaryGradient)" />
+    <!-- 左右耳朵/接头 -->
+    <rect x="1" y="13" width="3" height="14" rx="1.5" fill="url(#primaryGradient)" />
+    <rect x="46" y="13" width="3" height="14" rx="1.5" fill="url(#primaryGradient)" />
+    <!-- 内部白色屏幕 -->
+    <rect x="10" y="10" width="30" height="20" rx="4" fill="#FFFFFF" />
+    <!-- 气泡内的两个眼睛/对话点 -->
+    <circle cx="19" cy="18" r="2.5" fill="url(#primaryGradient)" />
+    <circle cx="31" cy="18" r="2.5" fill="url(#primaryGradient)" />
+    <!-- 气泡尾巴 -->
+    <path d="M 12 26 L 12 31 L 17 28 Z" fill="#FFFFFF" />
+  </g>
+
+  <!-- 右侧文本 Fastreat -->
+  <text x="62" y="38" 
+        fill="url(#primaryGradient)" 
+        font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" 
+        font-weight="900" 
+        font-style="italic"
+        font-size="34" 
+        letter-spacing="-0.5">Fastreat</text>
+</svg>
