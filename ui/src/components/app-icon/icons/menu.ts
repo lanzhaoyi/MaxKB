@@ -536,4 +536,48 @@ export default {
       ])
     },
   },
+  'app-business': {
+    iconReader: () => {
+      return h('i', [
+        h(
+          'svg',
+          {
+            style: { height: '100%', width: '100%' },
+            viewBox: '0 0 20 20',
+            version: '1.1',
+            xmlns: 'http://www.w3.org/2000/svg',
+          },
+          [
+            h('path', {
+              d: 'M6 6V4.5C6 3.6716 6.6716 3 7.5 3H12.5C13.3284 3 14 3.6716 14 4.5V6H16.5C17.3284 6 18 6.6716 18 7.5V15.5C18 16.3284 17.3284 17 16.5 17H3.5C2.6716 17 2 16.3284 2 15.5V7.5C2 6.6716 2.6716 6 3.5 6H6ZM7.5 6H12.5V4.5H7.5V6ZM3.6 7.6V15.4H16.4V7.6H3.6Z',
+              fill: 'currentColor',
+              fillRule: 'evenodd',
+            }),
+          ],
+        ),
+      ])
+    },
+  },
+  'app-business-active': {
+    iconReader: () => {
+      return h('i', [
+        h(
+          'svg',
+          {
+            style: { height: '100%', width: '100%' },
+            viewBox: '0 0 20 20',
+            version: '1.1',
+            xmlns: 'http://www.w3.org/2000/svg',
+          },
+          [
+            h('path', {
+              d: 'M6 6V4.5C6 3.6716 6.6716 3 7.5 3H12.5C13.3284 3 14 3.6716 14 4.5V6H16.5C17.3284 6 18 6.6716 18 7.5V15.5C18 16.3284 17.3284 17 16.5 17H3.5C2.6716 17 2 16.3284 2 15.5V7.5C2 6.6716 2.6716 6 3.5 6H6ZM7.5 6H12.5V4.5H7.5V6Z',
+              fill: 'currentColor',
+              fillRule: 'evenodd',
+            }),
+          ],
+        ),
+      ])
+    },
+  },
 }
