@@ -83,3 +83,98 @@ export type {
   PromptCreateData,
 }
 
+
+type ZammadDataType = 'ticket_level' | 'message_level' | 'agent_level' | 'combined_level'
+
+interface ZammadTicketRow {
+  ticketId?: number
+  channel?: string
+  userId?: number
+  createdAt?: string
+  firstResponseAt?: string
+  closedAt?: string
+  hasFirstResponse?: boolean
+  hasClosedAt?: boolean
+  firstResponseTimeMinutes?: number
+  resolutionTimeMinutes?: number
+  status?: string
+  groupName?: string
+  priority?: string
+  tags?: string
+}
+
+interface ZammadMessageRow {
+  messageId?: number
+  ticketId?: number
+  senderType?: string
+  agentId?: number
+  createdAt?: string
+  content?: string
+  responseTime?: number
+  hasResponseTime?: boolean
+  followUpSignal?: boolean
+  lastUserMessageAt?: string
+}
+
+interface ZammadAgentRow {
+  agentId?: number
+  agentName?: string
+  team?: string
+  firstActivityTime?: string
+  activeTime?: string
+  inactiveTime?: number
+  ticketsHandled?: number
+  agentMessageCount?: number
+  avgResponseTime?: number
+  workingSpanHours?: number
+  lastLogin?: string
+  status?: string
+}
+
+interface ZammadPageData<T> {
+  records?: T[]
+  total?: number
+  page?: number
+  size?: number
+}
+
+interface ZammadCombinedData {
+  ticketPage?: ZammadPageData<ZammadTicketRow>
+  messagePage?: ZammadPageData<ZammadMessageRow>
+  agentPage?: ZammadPageData<ZammadAgentRow>
+}
+
+interface ZammadTaskItem {
+  id: number
+  dataType?: string
+  filterJson?: string
+  promptText?: string
+  modelName?: string
+  analysisTime?: string
+  status?: number
+  statusText?: string
+  failReason?: string
+  hasResult?: boolean
+  createTime?: string
+}
+
+interface ZammadTaskResult {
+  id?: number
+  dataType?: string
+  filterJson?: string
+  promptText?: string
+  modelName?: string
+  analysisTime?: string
+  htmlResult?: string
+}
+
+export type {
+  ZammadDataType,
+  ZammadTicketRow,
+  ZammadMessageRow,
+  ZammadAgentRow,
+  ZammadPageData,
+  ZammadCombinedData,
+  ZammadTaskItem,
+  ZammadTaskResult,
+}

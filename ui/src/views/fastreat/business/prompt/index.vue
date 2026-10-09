@@ -202,6 +202,7 @@ import type { FormInstance } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
 import { t } from '@/locales'
 import { MsgConfirm, MsgSuccess } from '@/utils/message'
+import businessApi from '@/api/business/business'
 import promptApi from '@/api/business/prompt'
 import type {
   PromptAssistantType,
@@ -460,7 +461,7 @@ const deletePrompt = (item: PromptHistoryItem) => {
 }
 
 onMounted(() => {
-  promptApi
+  businessApi
     .getRegions()
     .then((res: any) => {
       const regions: string[] = Array.isArray(res?.data?.regions) ? res.data.regions : []

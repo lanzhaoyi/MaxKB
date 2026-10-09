@@ -12,13 +12,6 @@ Object.defineProperty(prefix, 'value', {
 })
 
 /**
- * 提示词可用区域
- */
-const getRegions: (loading?: Ref<boolean>) => Promise<Result<any>> = (loading) => {
-  return get(`${prefix.value}/regions`, undefined, loading)
-}
-
-/**
  * 助手类型列表
  * @param params {region}
  */
@@ -76,7 +69,6 @@ const deletePrompt: (
 }
 
 export default {
-  getRegions,
   getAssistantTypes,
   getNodes,
   getHistory,

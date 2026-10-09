@@ -182,6 +182,96 @@ class FastreatAiClient:
         FastreatAiClient._request('POST', f'/zoom/analyze/report/{report_id}/reset')
 
     @staticmethod
+    def get_model_name() -> str:
+        """
+        分析任务使用的部署模型名，可通过环境变量 MAXKB_FASTREAT_AI_MODEL_NAME 配置
+        未配置时返回空字符串，调用方不传该字段，由业务服务使用默认模型
+        """
+        return os.environ.get('MAXKB_FASTREAT_AI_MODEL_NAME', '').strip()
+
+    @staticmethod
+    def query_zammad_data(data: dict, region: str) -> dict:
+        """
+        查询 Zammad 分析数据
+        :param data: 查询条件（dataType/createdAtStart/createdAtEnd/分页参数）
+        :param region: 区域编码
+        :return: 单维度为分页对象，多维度为各维度分页对象集合
+        """
+        result = FastreatAiClient._request('POST', '/zammad/data/query', json_body=data,
+                                           region=region, authorized=True)
+        return result if isinstance(result, dict) else {}
+
+    @staticmethod
+    def create_zammad_task(data: dict, region: str):
+        """
+        创建 Zammad 分析任务
+        :param data: 任务数据（dataType/createdAtStart/createdAtEnd/promptText/modelName/sampleSize）
+        :param region: 区域编码
+        :return: 任务id
+        """
+        return FastreatAiClient._request('POST', '/zammad/analysis/task', json_body=data,
+                                         region=region, authorized=True)
+
+    @staticmethod
+    def get_zammad_task_list(page_no: int, page_size: int, data_type: str, status: int, region: str) -> dict:
+        """
+        Zammad 分析任务列表
+        :param page_no: 当前页
+        :param page_size: 每页条数
+        :param data_type: 数据类型，为空查询全部
+        :param status: 任务状态，为-1或空查询全部
+        :param region: 区域编码
+        :return: 分页对象
+        """
+        params = {}
+        if data_type is not None and data_type != '':
+            params['dataType'] = data_type
+        if status is not None and status >= 0:
+            params['status'] = status
+        result = FastreatAiClient._request('GET', f'/zammad/analysis/tasks/{page_no}/{page_size}',
+                                           params=params, region=region, authorized=True)
+        return result if isinstance(result, dict) else {}
+
+    @staticmethod
+    def get_zammad_task_data(task_id: int, page_no: int, page_size: int, region: str) -> dict:
+        """
+        按任务回查 Zammad 数据明细
+        :param task_id: 任务id
+        :param page_no: 当前页
+        :param page_size: 每页条数
+        :param region: 区域编码
+        :return: 单维度为分页对象，多维度为各维度分页对象集合
+        """
+        result = FastreatAiClient._request('GET',
+                                           f'/zammad/analysis/task/{task_id}/data/{page_no}/{page_size}',
+                                           region=region, authorized=True)
+        return result if isinstance(result, dict) else {}
+
+    @staticmethod
+    def get_zammad_task_result(task_id: int, region: str) -> dict:
+        """
+        Zammad 分析结果
+        :param task_id: 任务id
+        :param region: 区域编码
+        :return: 分析结果对象
+        """
+        result = FastreatAiClient._request('GET', f'/zammad/analysis/task/{task_id}/result',
+                                           region=region, authorized=True)
+        return result if isinstance(result, dict) else {}
+
+    @staticmethod
+    def retry_zammad_task(task_id: int, params: dict, region: str):
+        """
+        重试失败的 Zammad 分析任务
+        :param task_id: 任务id
+        :param params: 重试参数（sampleSize/promptText/modelName）
+        :param region: 区域编码
+        :return: 任务id
+        """
+        return FastreatAiClient._request('POST', f'/zammad/analysis/task/{task_id}/retry', params=params,
+                                         region=region, authorized=True)
+
+    @staticmethod
     def get_prompt_assistant_types(region: str) -> list:
         """
         提示词助手类型列表

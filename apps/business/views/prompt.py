@@ -12,66 +12,19 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 
 from business.api.prompt import PromptAssistantTypesAPI, PromptCreateAPI, PromptDeleteAPI, PromptHistoryAPI, \
-    PromptNodesAPI, PromptRegionsAPI
-from business.client import FastreatAiClient, REGION_PATTERN
+    PromptNodesAPI
+from business.client import FastreatAiClient
+from business.permissions import BUSINESS_PERMISSIONS
 from business.serializers.prompt import PromptCreateSerializer
+from business.views.base import get_query_param, get_region
 from common import result
 from common.auth import TokenAuth
 from common.auth.authentication import has_permissions
-from common.constants.permission_constants import PermissionConstants, RoleConstants
-from common.exception.app_exception import AppApiException
 from common.result import DefaultResultSerializer
-
-# 与「业务」菜单保持一致的权限集合
-BUSINESS_PERMISSIONS = (
-    PermissionConstants.APPLICATION_READ.get_workspace_permission(),
-    PermissionConstants.APPLICATION_READ.get_workspace_permission_workspace_manage_role(),
-    RoleConstants.USER.get_workspace_role(),
-    RoleConstants.WORKSPACE_MANAGE.get_workspace_role(),
-)
-
-
-def get_region(request: Request) -> str:
-    """
-    获取并校验区域编码
-    """
-    region = request.query_params.get('region')
-    if region is None or REGION_PATTERN.match(region) is None:
-        raise AppApiException(500, _('Region is required'))
-    return region
-
-
-def get_query_param(request: Request, name: str) -> str:
-    """
-    获取必填查询参数
-    """
-    value = request.query_params.get(name)
-    if value is None or value.strip() == '':
-        raise AppApiException(500, _('Required parameter is missing') + f': {name}')
-    return value.strip()
 
 
 class PromptView(APIView):
     authentication_classes = [TokenAuth]
-
-    class Regions(APIView):
-        authentication_classes = [TokenAuth]
-
-        @extend_schema(
-            methods=['GET'],
-            description=_('Prompt available region list'),
-            summary=_('Prompt available region list'),
-            operation_id='business_prompt_regions',
-            parameters=PromptRegionsAPI.get_parameters(),
-            responses=PromptRegionsAPI.get_response(),
-            tags=[_('Business')],
-        )
-        @has_permissions(*BUSINESS_PERMISSIONS)
-        def get(self, request: Request, workspace_id: str):
-            return result.success({
-                'regions': FastreatAiClient.get_regions(),
-                'default_region': FastreatAiClient.get_default_region(),
-            })
 
     class AssistantTypes(APIView):
         authentication_classes = [TokenAuth]

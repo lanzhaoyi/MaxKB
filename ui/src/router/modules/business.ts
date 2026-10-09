@@ -47,6 +47,21 @@ const businessRouter = {
       component: () => import('@/views/fastreat/business/zammad/index.vue'),
     },
     {
+      // 分析结果页，不在左侧子菜单中展示
+      path: '/business/zammad/result/:taskId',
+      name: 'businessZammadResult',
+      meta: {
+        title: 'views.business.zammad.resultTitle',
+        activeMenu: '/business',
+        active: '/business/zammad',
+        parentPath: '/business',
+        parentName: 'business',
+        permission: businessPermission,
+        hidden: true,
+      },
+      component: () => import('@/views/fastreat/business/zammad/result/index.vue'),
+    },
+    {
       path: '/business/zoom',
       name: 'businessZoom',
       meta: {

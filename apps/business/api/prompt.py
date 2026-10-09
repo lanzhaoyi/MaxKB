@@ -10,56 +10,20 @@ from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import OpenApiParameter, OpenApiTypes, inline_serializer
 from rest_framework import serializers
 
+from business.api.business import region_parameter, workspace_parameter
 from common.mixins.api_mixin import APIMixin
-
-
-def _workspace_parameter():
-    return OpenApiParameter(
-        name="workspace_id",
-        description=_("Workspace ID"),
-        type=OpenApiTypes.STR,
-        location=OpenApiParameter.PATH,
-        required=True,
-    )
-
-
-def _region_parameter():
-    return OpenApiParameter(
-        name="region",
-        description=_("Region code, such as uk / ca"),
-        type=OpenApiTypes.STR,
-        location=OpenApiParameter.QUERY,
-        required=True,
-    )
 
 
 class PromptAPI(APIMixin):
     @staticmethod
     def get_parameters():
-        return [_workspace_parameter()]
-
-
-class PromptRegionsAPI(PromptAPI):
-    @staticmethod
-    def get_response():
-        return inline_serializer(
-            name="PromptRegionsResponse",
-            fields={
-                'code': serializers.IntegerField(help_text=_('Response code')),
-                'message': serializers.CharField(help_text=_('Response message')),
-                'data': inline_serializer(name="PromptRegions", fields={
-                    'regions': serializers.ListField(child=serializers.CharField(),
-                                                     help_text=_('Available region list')),
-                    'default_region': serializers.CharField(help_text=_('Default region')),
-                }),
-            },
-        )
+        return [workspace_parameter()]
 
 
 class PromptAssistantTypesAPI(PromptAPI):
     @staticmethod
     def get_parameters():
-        return PromptAPI.get_parameters() + [_region_parameter()]
+        return PromptAPI.get_parameters() + [region_parameter()]
 
     @staticmethod
     def get_response():
@@ -90,7 +54,7 @@ class PromptNodesAPI(PromptAPI):
                 location=OpenApiParameter.QUERY,
                 required=True,
             ),
-            _region_parameter(),
+            region_parameter(),
         ]
 
     @staticmethod
@@ -148,7 +112,7 @@ class PromptHistoryAPI(PromptAPI):
                 location=OpenApiParameter.QUERY,
                 required=False,
             ),
-            _region_parameter(),
+            region_parameter(),
         ]
 
     @staticmethod
@@ -212,5 +176,5 @@ class PromptDeleteAPI(PromptAPI):
                 location=OpenApiParameter.PATH,
                 required=True,
             ),
-            _region_parameter(),
+            region_parameter(),
         ]

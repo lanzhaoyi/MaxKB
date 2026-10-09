@@ -15,12 +15,12 @@ app_name = "business"
 # @formatter:off
 # fmt: off
 urlpatterns = [
+    path('workspace/<str:workspace_id>/business/regions',
+         views.BusinessView.Regions.as_view(), name='business_regions'),
     path('workspace/<str:workspace_id>/business/zoom/report/list',
          views.ZoomReportView.List.as_view(), name='zoom_report_list'),
     path('workspace/<str:workspace_id>/business/zoom/report/<int:report_id>/reset',
          views.ZoomReportView.Reset.as_view(), name='zoom_report_reset'),
-    path('workspace/<str:workspace_id>/business/prompt/regions',
-         views.PromptView.Regions.as_view(), name='prompt_regions'),
     path('workspace/<str:workspace_id>/business/prompt/assistant-types',
          views.PromptView.AssistantTypes.as_view(), name='prompt_assistant_types'),
     path('workspace/<str:workspace_id>/business/prompt/nodes',
@@ -31,4 +31,16 @@ urlpatterns = [
          views.PromptView.Operate.as_view(), name='prompt_create'),
     path('workspace/<str:workspace_id>/business/prompt/<int:prompt_id>',
          views.PromptView.Delete.as_view(), name='prompt_delete'),
+    path('workspace/<str:workspace_id>/business/zammad/data/query',
+         views.ZammadView.Data.as_view(), name='zammad_data_query'),
+    path('workspace/<str:workspace_id>/business/zammad/task',
+         views.ZammadView.Task.as_view(), name='zammad_task_create'),
+    path('workspace/<str:workspace_id>/business/zammad/tasks/<int:page_no>/<int:page_size>',
+         views.ZammadView.TaskList.as_view(), name='zammad_task_list'),
+    path('workspace/<str:workspace_id>/business/zammad/task/<int:task_id>/data/<int:page_no>/<int:page_size>',
+         views.ZammadView.TaskData.as_view(), name='zammad_task_data'),
+    path('workspace/<str:workspace_id>/business/zammad/task/<int:task_id>/result',
+         views.ZammadView.TaskResult.as_view(), name='zammad_task_result'),
+    path('workspace/<str:workspace_id>/business/zammad/task/<int:task_id>/retry',
+         views.ZammadView.TaskRetry.as_view(), name='zammad_task_retry'),
 ]
