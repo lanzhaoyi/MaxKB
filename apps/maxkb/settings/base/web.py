@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'chat',
     'oss',
     'trigger',
+    'business',
     'django_apscheduler',
 ]
 
