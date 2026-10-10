@@ -45,7 +45,13 @@ ENV MAXKB_VERSION="${DOCKER_IMAGE_TAG} (build at ${BUILD_AT}, commit: ${GITHUB_C
     MAXKB_LOCAL_MODEL_HOST=127.0.0.1 \
     MAXKB_LOCAL_MODEL_PORT=11636 \
     MAXKB_LOCAL_MODEL_PROTOCOL=http \
-    PIP_TARGET=/opt/maxkb/python-packages
+    PIP_TARGET=/opt/maxkb/python-packages \
+    MAXKB_FASTREAT_AI_SERVICE_TOKEN_UK=d4f66bae-40ff-4152-ab2e-e083f87a2bd5 \
+    MAXKB_FASTREAT_AI_SERVICE_TOKEN_CA=4edc7a80-ccc3-4d7e-b00e-897f3e7fbdfc \
+    MAXKB_FASTREAT_AI_REGIONS=ca,uk \
+    MAXKB_FASTREAT_AI_DEFAULT_REGION=uk \
+    MAXKB_FASTREAT_AI_BASE_URL_UK=https://ai.fastreat.com/uk/api \
+    MAXKB_FASTREAT_AI_BASE_URL_CA=https://ai.fastreat.com/uk/api
 
 WORKDIR /opt/maxkb-app
 COPY --from=stage-build /opt/maxkb-app /opt/maxkb-app
